@@ -1,0 +1,41 @@
+version: '2'
+services:
+  nginx:
+    build: .docker/nginx
+    ports:
+    - "80:80"
+    volumes_from:
+    - apache
+    depends_on:
+    - apache
+    links:
+    - apache
+    environment:
+      TZ: Europe/Moscow
+  apache:
+    build: .docker/apache
+    expose:
+    - "8080"
+    volumes:
+      - /code/laravel-blank/:/var/www/html
+    depends_on:
+    - db
+    links:
+    - db
+    environment:
+      TZ: Europe/Moscow
+  db:
+    image: mariadb:5.5
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: site
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Europe/Moscow
+volumes:
+  db:
+    driver: local

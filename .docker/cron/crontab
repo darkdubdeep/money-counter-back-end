@@ -1,0 +1,4 @@
+* * * * * root curl -s 'http://nginx/cron-push/start' > /dev/null
+0 0 * * * root curl -s 'http://nginx/cron/delete-not-actual-favorites' > /dev/null
+
+# cron needs an empty line at the end, leave this here.
