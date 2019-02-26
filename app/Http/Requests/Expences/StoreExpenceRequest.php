@@ -25,7 +25,6 @@ class StoreExpenceRequest extends FormRequest
     {
         return [
             'title'=>'required',
-            'body'=>'required'
         ];
     }
 }
